@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#d7262e">
+<title>Estoque · World Tennis Balsas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Oswald:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f5f3; --surface: #ffffff; --text: #1b1c1e; --muted: #6b6e74; --border: #e2e2de;
+    --accent: #d7262e; --accent-text: #ffffff;
+    --ok-bg: #dcf3e2; --ok-fg: #17652f; --ok-dot: #22a447;
+    --low-bg: #fdf0c8; --low-fg: #7a5600; --low-dot: #e2a400;
+    --out-bg: #ececea; --out-fg: #8b8d91; --out-dot: #b4b6b9;
+    --shadow: 0 1px 2px rgba(0,0,0,.05), 0 2px 8px rgba(0,0,0,.04);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #121315; --surface: #1c1d20; --text: #ececec; --muted: #9a9ca2; --border: #2e3034;
+      --accent: #ef4b52; --accent-text: #ffffff;
+      --ok-bg: #173523; --ok-fg: #8fe0a8; --ok-dot: #3cc066;
+      --low-bg: #3a3012; --low-fg: #f3cf6c; --low-dot: #e8b21c;
+      --out-bg: #26272a; --out-fg: #6f7176; --out-dot: #55575c;
+      --shadow: none;
+    }
+  }
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  html, body { margin: 0; }
+  body { background: var(--bg); color: var(--text); font: 15px/1.45 "DM Sans", system-ui, sans-serif; }
+  header {
+    position: sticky; top: 0; z-index: 10; background: var(--surface);
+    border-bottom: 1px solid var(--border); box-shadow: var(--shadow);
+  }
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 0 16px; }
+  .top { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 16px; padding-top: 12px; }
+  h1 { font: 600 22px/1.1 "Oswald", sans-serif; text-transform: uppercase; letter-spacing: .02em; margin: 0; }
+  h1 span { color: var(--accent); }
+  .meta { color: var(--muted); font-size: 13px; }
+  .meta b { color: var(--text); font-weight: 700; }
+  .controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 10px 0; }
+  .modes { display: inline-flex; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; flex-shrink: 0; }
+  .modes button {
+    font: 500 14px "DM Sans", sans-serif; border: 0; background: transparent; color: var(--text);
+    padding: 9px 14px; cursor: pointer;
+  }
+  .modes button[aria-pressed="true"] { background: var(--accent); color: var(--accent-text); }
+  .search { flex: 1 1 220px; position: relative; }
+  .search input {
+    width: 100%; font: 16px "DM Sans", sans-serif; padding: 9px 36px 9px 12px; border-radius: 10px;
+    border: 1px solid var(--border); background: var(--bg); color: var(--text); outline: none;
+  }
+  .search input:focus { border-color: var(--accent); }
+  .search .clear {
+    position: absolute; right: 6px; top: 50%; transform: translateY(-50%); border: 0; background: none;
+    color: var(--muted); font-size: 20px; cursor: pointer; padding: 2px 6px; display: none;
+  }
+  .legend { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 12px; color: var(--muted); padding-bottom: 10px; }
+  .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 5px; vertical-align: -1px; }
+  .dot-ok { background: var(--ok-dot); } .dot-low { background: var(--low-dot); } .dot-out { background: var(--out-dot); }
+
+  main { padding: 16px 0 40px; }
+  .status { color: var(--muted); font-size: 13px; margin: 0 0 12px; }
+  .size-picker { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+  .size-picker button {
+    font: 500 14px "DM Sans", sans-serif; min-width: 44px; padding: 7px 10px; border-radius: 8px;
+    border: 1px solid var(--border); background: var(--surface); color: var(--text); cursor: pointer;
+  }
+  .size-picker button:hover { border-color: var(--accent); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 14px; box-shadow: var(--shadow); min-width: 0; }
+  .card-head { display: flex; justify-content: space-between; gap: 10px; align-items: flex-start; margin-bottom: 10px; }
+  .brand { font-size: 11px; font-weight: 700; letter-spacing: .08em; color: var(--accent); text-transform: uppercase; }
+  .model { font: 500 18px/1.15 "Oswald", sans-serif; text-transform: uppercase; margin: 2px 0 0; overflow-wrap: anywhere; }
+  .price { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .pairs { text-align: right; flex-shrink: 0; }
+  .pairs b { display: block; font: 600 22px/1 "Oswald", sans-serif; }
+  .pairs small { color: var(--muted); font-size: 11px; }
+  .color { padding-top: 8px; border-top: 1px dashed var(--border); margin-top: 8px; }
+  .card-head + .color { border-top: 0; margin-top: 0; padding-top: 0; }
+  .color-name { font-size: 13px; font-weight: 500; margin-bottom: 6px; overflow-wrap: anywhere; }
+  .color-name small { color: var(--muted); font-weight: 400; }
+  .sizes { display: flex; flex-wrap: wrap; gap: 5px; }
+  .chip {
+    display: inline-flex; align-items: baseline; gap: 4px; padding: 4px 8px; border-radius: 7px;
+    font-size: 14px; font-weight: 700; font-variant-numeric: tabular-nums;
+  }
+  .chip small { font-weight: 500; font-size: 11px; opacity: .85; }
+  .chip.ok { background: var(--ok-bg); color: var(--ok-fg); }
+  .chip.low { background: var(--low-bg); color: var(--low-fg); }
+  .chip.out { background: var(--out-bg); color: var(--out-fg); text-decoration: line-through; }
+  .chip.big { font-size: 16px; padding: 6px 10px; }
+  .empty { text-align: center; color: var(--muted); padding: 48px 16px; }
+  @media (max-width: 520px) {
+    h1 { font-size: 19px; }
+    .modes { width: 100%; } .modes button { flex: 1; }
+    .grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="top">
+      <h1>World Tennis <span>Balsas</span></h1>
+      <div class="meta">Atualizado em <b>04/10/2026 às 08:30</b> · <b id="sumModelos"></b> modelos · <b id="sumPares"></b> pares</div>
+    </div>
+    <div class="controls">
+      <div class="modes" role="group" aria-label="Modo de busca">
+        <button type="button" data-mode="modelo" aria-pressed="true">Por modelo</button>
+        <button type="button" data-mode="tamanho" aria-pressed="false">Por tamanho</button>
+      </div>
+      <div class="search">
+        <input id="q" type="text" enterkeyhint="search" autocomplete="off" placeholder="Digite o modelo (ex: Corre 5, Altomax)" aria-label="Buscar">
+        <button class="clear" type="button" aria-label="Limpar">×</button>
+      </div>
+    </div>
+    <div class="legend">
+      <span><i class="dot-ok"></i>3+ pares</span>
+      <span><i class="dot-low"></i>1–2 pares (acabando)</span>
+      <span><i class="dot-out"></i>esgotado</span>
+    </div>
+  </div>
+</header>
+<main class="wrap">
+  <p class="status" id="status"></p>
+  <div class="size-picker" id="sizePicker" hidden></div>
+  <div class="grid" id="grid"></div>
+</main>
+
+<script type="application/json" id="dados">{"atualizado":"04/10/2026 às 08:30","totalModelos":27,"totalPares":696,"modelos":[{"marca":"ADIDAS","modelo":"ADIZERO DRIVE RC","total":34,"precoMin":899.99,"precoMax":899.99,"cores":[{"nome":"Bege/Verde","tamanhos":[["35",0],["36",1],["37",1],["38",0]]},{"nome":"Laranja/Roxo","tamanhos":[["40",1],["41",0],["42",0],["43",1]]},{"nome":"Marinho/Amarelo","tamanhos":[["39",1],["40",1],["41",2],["42",3],["43",2],["44",1]]},{"nome":"Preto/Branco","tamanhos":[["34",2],["35",1],["36",2],["37",2],["38",1],["39",4],["40",1],["41",2],["42",1],["43",2],["44",2]]}]},{"marca":"ADIDAS","modelo":"ADIZERO EVO SL","total":8,"precoMin":1099.99,"precoMax":1099.99,"cores":[{"nome":"Cinza/Preto","tamanhos":[["37",1],["38",2],["39",2],["40",1]]},{"nome":"Roxo/Laranja","tamanhos":[["35",1],["36",0],["37",1],["38",0]]}]},{"marca":"ADIDAS","modelo":"ADIZERO PACER","total":9,"precoMin":699.99,"precoMax":699.99,"cores":[{"nome":"Bege","tamanhos":[["34",1],["35",1],["36",1],["37",1],["38",0],["39",1]]},{"nome":"Branco/Preto","tamanhos":[["35",1],["36",0],["37",2],["38",1]]}]},{"marca":"ADIDAS","modelo":"SUPER U","total":8,"precoMin":599.99,"precoMax":599.99,"cores":[{"nome":"Branco/Preto","tamanhos":[["39",1],["40",2],["41",2],["42",1],["43",1],["44",1]]}]},{"marca":"ASICS","modelo":"GEL-CUMULUS 28","total":20,"precoMin":799.99,"precoMax":799.99,"cores":[{"nome":"Azul/Verde","tamanhos":[["34",1],["35",1],["36",2],["37",3],["38",2],["39",1]]},{"nome":"Verde/Bege","tamanhos":[["39",1],["40",1],["41",2],["42",3],["43",2],["44",1]]}]},{"marca":"FILA","modelo":"RACER SPEEDZONE 2","total":4,"precoMin":599.99,"precoMax":599.99,"cores":[{"nome":"Azul/Marinho","tamanhos":[["39",0],["40",1],["41",0],["42",1],["43",1],["44",1]]}]},{"marca":"FILA","modelo":"SPEEDROCKER SKYFOAM","total":5,"precoMin":799.99,"precoMax":799.99,"cores":[{"nome":"Branco/Amarelo","tamanhos":[["35",0],["37",1],["38",1],["39",1],["40",0],["41",0],["42",0],["43",1],["44",1]]}]},{"marca":"MEIAS","modelo":"ALTOMAX - MEIA FEM INVISIVEL KIT 6 PARES","total":97,"precoMin":49.99,"precoMax":49.99,"cores":[{"nome":"Azl/bco/Rosa","tamanhos":[["Único",17]]},{"nome":"Branco","tamanhos":[["Único",20]]},{"nome":"Preto","tamanhos":[["Único",20]]},{"nome":"Preto/ Azul/Rosa","tamanhos":[["Único",20]]},{"nome":"Preto/ Branco/Cinza","tamanhos":[["Único",20]]}]},{"marca":"MEIAS","modelo":"ALTOMAX - MEIA FEM SOQUETE KIT 6 PARES","total":32,"precoMin":49.99,"precoMax":49.99,"cores":[{"nome":"Branco/Branco","tamanhos":[["Único",12]]},{"nome":"Preto/Preto","tamanhos":[["Único",20]]}]},{"marca":"MEIAS","modelo":"ALTOMAX - MEIA FEM/MASC CANO LONGO KIT 3 PARES","total":88,"precoMin":29.99,"precoMax":29.99,"cores":[{"nome":"Branco","tamanhos":[["Único",38]]},{"nome":"Preto","tamanhos":[["Único",31]]},{"nome":"Preto/ Branco/Cinza","tamanhos":[["Único",19]]}]},{"marca":"MEIAS","modelo":"ALTOMAX - MEIA MASC INVISIVEL KIT 6 PARES","total":60,"precoMin":49.99,"precoMax":49.99,"cores":[{"nome":"Branco/Branco","tamanhos":[["Único",20]]},{"nome":"Preto/ Branco/Cinza","tamanhos":[["Único",20]]},{"nome":"Preto/Preto","tamanhos":[["Único",20]]}]},{"marca":"MEIAS","modelo":"ALTOMAX - MEIA MASC SOQUETE KIT 6 PARES","total":40,"precoMin":49.99,"precoMax":49.99,"cores":[{"nome":"Branco/Branco","tamanhos":[["Único",20]]},{"nome":"Preto/Preto","tamanhos":[["Único",20]]}]},{"marca":"MIZUNO","modelo":"JET 8","total":6,"precoMin":359.99,"precoMax":359.99,"cores":[{"nome":"Preto/Prata","tamanhos":[["39",1],["40",1],["41",1],["42",1],["43",1],["44",1]]}]},{"marca":"NEW BALANCE","modelo":"FUELCELL REBEL V5","total":6,"precoMin":999.99,"precoMax":999.99,"cores":[{"nome":"Preto/Branco","tamanhos":[["39",0],["40",0],["41",0],["42",0],["43",1],["44",0]]},{"nome":"Preto/Verde Claro","tamanhos":[["35",1],["36",0],["37",2],["38",1],["39",1]]}]},{"marca":"NEW BALANCE","modelo":"INFINION 1080 V15","total":7,"precoMin":1099.99,"precoMax":1099.99,"cores":[{"nome":"Rosa/Prata","tamanhos":[["35",1],["36",1],["37",2],["38",0],["39",0]]},{"nome":"Verde Escuro/Verde","tamanhos":[["39",0],["40",1],["41",0],["42",0],["43",1],["44",1]]}]},{"marca":"OLYMPIKUS","modelo":"CORRE 5","total":30,"precoMin":599.99,"precoMax":599.99,"cores":[{"nome":"Algodão/Multicolor","tamanhos":[["37",0],["38",1],["39",1],["40",1],["41",1],["42",1]]},{"nome":"Arenito/Preto","tamanhos":[["35",0],["36",0],["37",0],["38",0],["39",0],["40",0],["41",0],["42",1]]},{"nome":"Branco","tamanhos":[["34",0],["35",0],["36",0],["37",0],["38",0],["39",0],["40",0],["41",2],["42",1],["43",1]]},{"nome":"Chumbo/Amarelo","tamanhos":[["36",0],["37",0],["38",0],["39",0],["40",1],["41",0]]},{"nome":"Limão/Azul","tamanhos":[["36",0],["37",1],["38",0],["39",0],["40",1],["41",1]]},{"nome":"Lunar/Bege","tamanhos":[["35",0],["36",0],["37",0],["38",0]]},{"nome":"Marrom","tamanhos":[["36",0],["37",1],["38",0],["39",0],["40",0],["41",0],["42",0],["43",0],["44",1]]},{"nome":"Prata","tamanhos":[["35",0],["36",0],["37",0],["38",0],["39",1],["40",1]]},{"nome":"Preto/Preto","tamanhos":[["35",0],["36",0],["37",0],["38",0],["39",1],["40",1],["41",0],["42",2],["43",2],["44",3],["45",2],["46",1]]}]},{"marca":"OLYMPIKUS","modelo":"CORRE MAX 2","total":6,"precoMin":599.99,"precoMax":599.99,"cores":[{"nome":"Arenito","tamanhos":[["36",0],["37",0],["38",0],["39",1],["40",1]]},{"nome":"Preto","tamanhos":[["40",0],["41",0],["42",2],["43",1],["44",1]]}]},{"marca":"OLYMPIKUS","modelo":"CORRE TRILHA 3","total":6,"precoMin":599.99,"precoMax":599.99,"cores":[{"nome":"Verde Militar/Laranja","tamanhos":[["39",1],["40",1],["41",1],["42",1],["43",1],["44",1]]}]},{"marca":"OLYMPIKUS","modelo":"CORRE TURBO","total":14,"precoMin":699.99,"precoMax":699.99,"cores":[{"nome":"Arenito/Preto","tamanhos":[["35",1],["36",1],["37",1],["38",2],["39",1]]},{"nome":"Azaleia","tamanhos":[["34",1],["35",0],["36",1],["37",0],["38",2],["39",1],["40",1],["41",0]]},{"nome":"Preto/Limão","tamanhos":[["35",0],["36",1],["37",0],["38",1],["39",0],["40",0]]}]},{"marca":"OLYMPIKUS","modelo":"DYNAMIC ADULTO","total":11,"precoMin":299.99,"precoMax":299.99,"cores":[{"nome":"Marinho/Dourado","tamanhos":[["40",1],["41",0],["42",2],["43",1],["44",1]]},{"nome":"Preto","tamanhos":[["40",1],["41",1],["42",2],["43",1],["44",1]]}]},{"marca":"OLYMPIKUS","modelo":"SWIFT 6","total":1,"precoMin":299.99,"precoMax":299.99,"cores":[{"nome":"Maritimo/Organza","tamanhos":[["34",0],["35",0],["36",1],["37",0],["38",0]]}]},{"marca":"OLYMPIKUS","modelo":"VIBRACAO","total":7,"precoMin":159.99,"precoMax":159.99,"cores":[{"nome":"Algodão","tamanhos":[["34",1],["35",1],["36",1],["37",1],["38",2],["39",1]]}]},{"marca":"OXTO - PLANET SHOES","modelo":"CONSTELACAO","total":40,"precoMin":99.99,"precoMax":99.99,"cores":[{"nome":"Preto","tamanhos":[["34",0],["35",1],["36",1],["37",1],["38",1],["39",1],["40",2],["41",1],["42",0],["43",1]]},{"nome":"Preto/Cinza","tamanhos":[["34",1],["35",1],["36",1],["37",1],["38",1],["39",2],["40",1],["41",1],["42",0],["43",1]]},{"nome":"Preto/Marrom","tamanhos":[["34",1],["35",1],["36",1],["37",1],["38",1],["39",2],["40",2],["41",1],["42",1],["43",1]]},{"nome":"Rato/Preto","tamanhos":[["35",1],["36",1],["37",1],["38",1],["39",1],["40",1],["41",1],["42",1],["43",1]]}]},{"marca":"OXTO - PLANET SHOES","modelo":"JUPITER","total":17,"precoMin":99.99,"precoMax":99.99,"cores":[{"nome":"Cinza/Rosa","tamanhos":[["34",1],["35",2],["36",3],["37",3],["38",2],["39",1]]},{"nome":"Preto/Laranja","tamanhos":[["38",0],["39",2],["40",2],["42",1],["43",0]]}]},{"marca":"OXTO - PLANET SHOES","modelo":"ORION","total":67,"precoMin":99.99,"precoMax":99.99,"cores":[{"nome":"Chumbo/Vermelho","tamanhos":[["34",1],["35",1],["36",2],["37",1],["38",2],["39",1]]},{"nome":"Cinza/Branco","tamanhos":[["34",1],["35",1],["36",1],["37",0],["38",1],["39",2],["40",2],["41",1],["42",1],["43",1]]},{"nome":"Marinho/Cinza","tamanhos":[["34",1],["35",2],["36",2],["37",2],["38",1],["39",1]]},{"nome":"Marinho/Verde Água","tamanhos":[["34",1],["35",1],["36",2],["37",2],["38",2],["39",1]]},{"nome":"Preto/Branco","tamanhos":[["34",1],["35",1],["36",2],["37",2],["38",1],["39",1],["40",2],["41",2],["42",2],["43",2]]},{"nome":"Preto/Pink","tamanhos":[["34",1],["35",0],["36",2],["37",1],["38",2],["39",1]]},{"nome":"Pêssego/Laranja","tamanhos":[["34",1],["35",1],["36",2],["37",1],["38",2],["39",0]]}]},{"marca":"OXTO - PLANET SHOES","modelo":"ORION II","total":69,"precoMin":129.99,"precoMax":129.99,"cores":[{"nome":"Bege/Arenito","tamanhos":[["35",1],["36",1],["37",1],["38",1],["39",1],["40",0],["41",0],["42",1],["43",1]]},{"nome":"Bege/Verde","tamanhos":[["36",1],["37",1],["38",0]]},{"nome":"Branco/Arenito","tamanhos":[["36",1],["37",1],["38",1],["39",1],["40",1],["41",1]]},{"nome":"Grafite/Preto","tamanhos":[["35",1],["36",1],["37",1],["38",1],["39",1],["40",0],["41",1],["42",1],["43",1]]},{"nome":"Marinho/Caramelo","tamanhos":[["38",1],["39",1],["40",1],["41",1],["42",1],["43",1]]},{"nome":"Marinho/Celeste","tamanhos":[["35",1],["37",1],["38",1],["39",1],["40",1],["41",1]]},{"nome":"Marrom/Caramelo","tamanhos":[["38",1],["39",1],["40",1],["41",1],["42",1],["43",1]]},{"nome":"Preto/Arenito","tamanhos":[["34",1],["35",1],["36",1],["37",1],["38",1],["40",1],["41",0],["42",1]]},{"nome":"Preto/Pink","tamanhos":[["34",1],["35",1],["36",1],["37",1],["38",1],["39",1]]},{"nome":"Preto/Preto","tamanhos":[["35",1],["36",1],["37",1],["41",1],["42",1]]},{"nome":"Rosé/Bordô","tamanhos":[["34",1],["35",2],["36",2],["37",2],["38",2],["39",1]]}]},{"marca":"OXTO - PLANET SHOES","modelo":"WINNER","total":4,"precoMin":99.99,"precoMax":99.99,"cores":[{"nome":"Branco/Marinho","tamanhos":[["35",1],["36",0],["37",0],["40",1],["41",1],["42",0],["43",1]]}]}]}</script>
+<script>
+(function () {
+  var D = JSON.parse(document.getElementById("dados").textContent);
+  var grid = document.getElementById("grid");
+  var statusEl = document.getElementById("status");
+  var picker = document.getElementById("sizePicker");
+  var input = document.getElementById("q");
+  var clearBtn = document.querySelector(".search .clear");
+  var mode = "modelo";
+
+  document.getElementById("sumModelos").textContent = D.totalModelos.toLocaleString("pt-BR");
+  document.getElementById("sumPares").textContent = D.totalPares.toLocaleString("pt-BR");
+
+  function norm(s) { return String(s).normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/\s+/g, " ").trim(); }
+  function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); }
+  function cls(q) { return q >= 3 ? "ok" : q >= 1 ? "low" : "out"; }
+  function brl(v) { return v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" }); }
+  function precoTxt(m) {
+    if (m.precoMin == null) return "";
+    return m.precoMin === m.precoMax ? brl(m.precoMin) : brl(m.precoMin) + " – " + brl(m.precoMax);
+  }
+  function plural(n, um, varios) { return n.toLocaleString("pt-BR") + " " + (n === 1 ? um : varios); }
+
+  D.modelos.forEach(function (m) { m._busca = norm(m.marca + " " + m.modelo); });
+
+  // todos os tamanhos existentes (para os atalhos do modo "por tamanho")
+  var todosTam = {};
+  D.modelos.forEach(function (m) { m.cores.forEach(function (c) { c.tamanhos.forEach(function (t) { todosTam[t[0]] = (todosTam[t[0]] || 0) + t[1]; }); }); });
+  var tamOrdenados = Object.keys(todosTam).sort(function (a, b) {
+    var na = parseFloat(a.replace(",", ".")), nb = parseFloat(b.replace(",", "."));
+    if (!isNaN(na) && !isNaN(nb)) return na - nb || a.localeCompare(b);
+    if (!isNaN(na)) return -1; if (!isNaN(nb)) return 1;
+    return a.localeCompare(b);
+  });
+
+  function cardHead(m, total) {
+    var p = precoTxt(m);
+    return '<div class="card-head"><div><div class="brand">' + esc(m.marca) + '</div>' +
+      '<h2 class="model">' + esc(m.modelo) + '</h2>' + (p ? '<div class="price">' + p + '</div>' : '') + '</div>' +
+      '<div class="pairs"><b>' + total + '</b><small>' + (total === 1 ? 'par' : 'pares') + '</small></div></div>';
+  }
+
+  function renderModelo(q) {
+    var termos = norm(q).split(" ").filter(Boolean);
+    var lista = D.modelos.filter(function (m) { return termos.every(function (t) { return m._busca.indexOf(t) !== -1; }); });
+    picker.hidden = true;
+    statusEl.textContent = termos.length
+      ? plural(lista.length, "modelo encontrado", "modelos encontrados")
+      : "Mostrando todos os " + plural(lista.length, "modelo", "modelos");
+    if (!lista.length) { grid.innerHTML = '<div class="empty">Nenhum modelo encontrado para “' + esc(q) + '”.</div>'; return; }
+    grid.innerHTML = lista.map(function (m) {
+      return '<article class="card">' + cardHead(m, m.total) + m.cores.map(function (c) {
+        var tc = c.tamanhos.reduce(function (s, t) { return s + t[1]; }, 0);
+        return '<div class="color"><div class="color-name">' + esc(c.nome) + ' <small>· ' + plural(tc, "par", "pares") + '</small></div><div class="sizes">' +
+          c.tamanhos.map(function (t) {
+            return '<span class="chip ' + cls(t[1]) + '" title="' + esc(t[0]) + ': ' + plural(t[1], "par", "pares") + '">' + esc(t[0]) + ' <small>×' + t[1] + '</small></span>';
+          }).join("") + '</div></div>';
+      }).join("") + '</article>';
+    }).join("");
+  }
+
+  function renderTamanho(q) {
+    var alvo = norm(q).replace(",", ".");
+    if (!alvo) {
+      picker.hidden = false;
+      picker.innerHTML = tamOrdenados.filter(function (t) { return todosTam[t] > 0; }).map(function (t) {
+        return '<button type="button" data-size="' + esc(t) + '">' + esc(t) + '</button>';
+      }).join("");
+      statusEl.textContent = "Digite um tamanho ou toque em um dos tamanhos disponíveis:";
+      grid.innerHTML = "";
+      return;
+    }
+    picker.hidden = true;
+    var resultados = [], pares = 0;
+    D.modelos.forEach(function (m) {
+      var cores = [];
+      m.cores.forEach(function (c) {
+        c.tamanhos.forEach(function (t) {
+          if (norm(t[0]).replace(",", ".") === alvo) cores.push({ nome: c.nome, tam: t[0], qtd: t[1] });
+        });
+      });
+      if (!cores.length) return;
+      cores.sort(function (a, b) { return b.qtd - a.qtd; });
+      var tot = cores.reduce(function (s, c) { return s + c.qtd; }, 0);
+      pares += tot;
+      resultados.push({ m: m, cores: cores, tot: tot });
+    });
+    resultados.sort(function (a, b) { return (b.tot > 0) - (a.tot > 0) || a.m.marca.localeCompare(b.m.marca) || a.m.modelo.localeCompare(b.m.modelo); });
+    var disp = resultados.filter(function (r) { return r.tot > 0; }).length;
+    statusEl.textContent = "Tamanho " + q.trim() + ": " + plural(disp, "modelo disponível", "modelos disponíveis") + " · " + plural(pares, "par", "pares");
+    if (!resultados.length) { grid.innerHTML = '<div class="empty">Nenhum modelo com tamanho “' + esc(q) + '”.</div>'; return; }
+    grid.innerHTML = resultados.map(function (r) {
+      return '<article class="card">' + cardHead(r.m, r.tot) + r.cores.map(function (c) {
+        return '<div class="color"><div class="sizes" style="align-items:center;justify-content:space-between;flex-wrap:nowrap;gap:10px">' +
+          '<span class="color-name" style="margin:0">' + esc(c.nome) + '</span>' +
+          '<span class="chip big ' + cls(c.qtd) + '">' + esc(c.tam) + ' <small>×' + c.qtd + '</small></span></div></div>';
+      }).join("") + '</article>';
+    }).join("");
+  }
+
+  function render() {
+    clearBtn.style.display = input.value ? "block" : "none";
+    if (mode === "modelo") renderModelo(input.value); else renderTamanho(input.value);
+  }
+
+  document.querySelectorAll(".modes button").forEach(function (b) {
+    b.addEventListener("click", function () {
+      mode = b.dataset.mode;
+      document.querySelectorAll(".modes button").forEach(function (x) { x.setAttribute("aria-pressed", String(x === b)); });
+      input.value = "";
+      input.placeholder = mode === "modelo" ? "Digite o modelo (ex: Corre 5, Altomax)" : "Digite o tamanho (ex: 37)";
+      input.inputMode = mode === "tamanho" ? "decimal" : "text";
+      render();
+      input.focus();
+    });
+  });
+  picker.addEventListener("click", function (e) {
+    var b = e.target.closest("button[data-size]");
+    if (b) { input.value = b.dataset.size; render(); }
+  });
+  input.addEventListener("input", render);
+  clearBtn.addEventListener("click", function () { input.value = ""; render(); input.focus(); });
+  render();
+})();
+</script>
+</body>
+</html>

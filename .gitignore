@@ -1,0 +1,4 @@
+# Só o index.html vai para o site. O export do sistema (tem preço de custo) fica só neste computador.
+*
+!.gitignore
+!index.html
