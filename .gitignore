@@ -1,4 +1,7 @@
-# Só o index.html vai para o site. O export do sistema (tem preço de custo) fica só neste computador.
+# Só as páginas e as fotos vão para o site. O export do sistema (tem preço de custo) fica só neste computador.
 *
 !.gitignore
 !index.html
+!catalogo.html
+!fotos/
+!fotos/*.jpg
