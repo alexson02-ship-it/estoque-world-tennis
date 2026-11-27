@@ -6,3 +6,5 @@
 !fotos/
 !fotos/*.jpg
 !logo.png
+!fotos/*.png
+!fotos/*.webp
